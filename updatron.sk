@@ -4,7 +4,7 @@ options:
 	
 	
 function testForUpdate(script: text) :: boolean:
-	set {_latest} to text from url "https://github.com/The-Elder-Guardian/Dandelion/raw/master/version/production/%{_script}%"
+	set {_latest} to text from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/version/production/%{_script}%"
 	if {_latest} is set:
 		if {_script} is "dandelion":
 			set {_installed} to dandelion_version()
@@ -26,7 +26,7 @@ function installUpdate(script: text):
 				copy file path "plugins/Skript/scripts/%{_script}%.sk" to file path "plugins/_backup/%{_script}%/%{_script}%.before.%dandelion_version()%.sk"
 			if {_script} is "updatron":
 				copy file path "plugins/Skript/scripts/%{_script}%.sk" to file path "plugins/_backup/%{_script}%/%{_script}%.before.{@updatron-version}.sk"
-			download from url "https://github.com/The-Elder-Guardian/Dandelion/raw/master/scripts/%{_script}%.sk" to file path "plugins/Skript/scripts/%{_script}%.sk"
+			download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/scripts/%{_script}%.sk" to file path "plugins/Skript/scripts/%{_script}%.sk"
 			wait 5 ticks
 			execute console command "/skript reload %{_script}%"
 			send "{@prefix} Mise à jour effectuée avec succés pour %{_script}%..." to console
