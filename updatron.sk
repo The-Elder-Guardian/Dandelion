@@ -22,22 +22,16 @@ on load:
 	send "{@prefix} Version d'Updatron installée : &b{@updatron-version}" to console
 	if testForUpdate("updatron"):
 		send "{@prefix} Une mise à jour d'Updatron est disponible, installation..." to console
-		create directory path "plugins/_backups/updatron"
-		copy file path "plugins/Skript/scripts/updatron.sk" to file path "plugins/_backup/updatron/updatron.{@updatron-version}.sk"
 		download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/updatron.sk" to file path "plugins/Skript/scripts/updatron.sk"
 		wait 5 ticks
 		execute console command "/skript reload updatron"
 		stop
 	else:
 		send "{@prefix} Mise à jour des scripts depuis Github..." to console
-    
-		# CHECK NAVITRON UPDATES
 		if script "dandelion.sk" is loaded:
 			send "{@prefix} Dandelion est chargé, vérification des mises à jour..." to console
 			if testForUpdate("dandelion"):
 				send "{@prefix} Une mise à jour est disponible pour Dandelion, installation en cours..." to console
-				create directory path "plugins/_backups/dandelion"
-				copy file path "plugins/Skript/scripts/dandelion.sk" to file path "plugins/_backup/updatron/dandelion.%dandelion_version()%.sk"
 				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/dandelion.sk" to file path "plugins/Skript/scripts/dandelion.sk"
 				wait 5 ticks
 				execute console command "/skript reload dandelion"
@@ -47,10 +41,34 @@ command forceUpdate <text>:
 	executable by: console and players
 	trigger:
 		if command sender is console:
-			send "{@prefix} Mise à jour forcée pour le script %arg-1%" to console
-			installUpdate(arg-1)
+			if arg-1 is "updatron":
+				send "{@prefix} Mise à jour forcée pour le script Updatron" to console
+				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/updatron.sk" to file path "plugins/Skript/scripts/updatron.sk"
+				wait 5 ticks
+				execute console command "/skript reload updatron"
+				send "{@prefix} Mise à jour terminée" to console
+			else if arg-1 is "dandelion":
+				send "{@prefix} Mise à jour forcée pour le script Dandelion" to console
+				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/dandelion.sk" to file path "plugins/Skript/scripts/dandelion.sk"
+				wait 5 ticks
+				execute console command "/skript reload dandelion"
+				send "{@prefix} Mise à jour terminée" to console
+			else:
+				send "{@prefix} Le script demandé n'existe pas"
 		else:
-			send "{@prefix} Mise à jour forcée pour le script %arg-1%" to player
-			send "{@prefix} Mise à jour forcée pour le script %arg-1% par %player%" to console
-			installUpdate(arg-1)
-			send "{@prefix} Mise à jour terminée" to player
+			if arg-1 is "updatron":
+				send "{@prefix} Mise à jour forcée pour le script Updatron par %player%" to console
+				send "{@prefix} Mise à jour forcée pour le script Updatron" to player
+				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/updatron.sk" to file path "plugins/Skript/scripts/updatron.sk"
+				wait 5 ticks
+				execute console command "/skript reload updatron"
+				send "{@prefix} Mise à jour terminée" to player
+			else if arg-1 is "dandelion":
+				send "{@prefix} Mise à jour forcée pour le script Dandelion par %player%" to console
+				send "{@prefix} Mise à jour forcée pour le script Dandelion" to player
+				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/dandelion.sk" to file path "plugins/Skript/scripts/dandelion.sk"
+				wait 5 ticks
+				execute console command "/skript reload dandelion"
+				send "{@prefix} Mise à jour terminée" to player
+			else:
+				send "{@prefix} Le script demandé n'existe pas"
