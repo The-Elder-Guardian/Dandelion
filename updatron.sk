@@ -17,25 +17,17 @@ function testForUpdate(script: text) :: boolean:
 	if {_latest} is not set:
 		send "Erreur lors de la vérification de la dernière version pour %{_script}%" to console
 		return false
-		
-function installUpdate(script: text):
-	if "%{_script}%" is not "":
-		if file path "plugins/Skript/scripts/%{_script}%.sk" is not missing:
-			create directory path "plugins/_backups/%{_script}%"
-			if "%	²{_script}%" is "dandelion":
-				copy file path "plugins/Skript/scripts/%{_script}%.sk" to file path "plugins/_backup/%{_script}%/%{_script}%.before.%dandelion_version()%.sk"
-			if "%{_script}%" is "updatron":
-				copy file path "plugins/Skript/scripts/%{_script}%.sk" to file path "plugins/_backup/%{_script}%/%{_script}%.before.{@updatron-version}.sk"
-			download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/%{_script}%.sk" to file path "plugins/Skript/scripts/%{_script}%.sk"
-			wait 5 ticks
-			execute console command "/skript reload %{_script}%"
-			send "{@prefix} Mise à jour effectuée avec succés pour %{_script}%..." to console
 	
 on load:
 	send "{@prefix} Version d'Updatron installée : &b{@updatron-version}" to console
 	if testForUpdate("updatron"):
 		send "{@prefix} Une mise à jour d'Updatron est disponible, installation..." to console
-		installUpdate("updatron")
+		create directory path "plugins/_backups/updatron"
+		copy file path "plugins/Skript/scripts/updatron.sk" to file path "plugins/_backup/updatron/updatron.{@updatron-version}.sk"
+		download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/updatron.sk" to file path "plugins/Skript/scripts/updatron.sk"
+		wait 5 ticks
+		execute console command "/skript reload updatron"
+		stop
 	else:
 		send "{@prefix} Mise à jour des scripts depuis Github..." to console
     
@@ -44,7 +36,11 @@ on load:
 			send "{@prefix} Dandelion est chargé, vérification des mises à jour..." to console
 			if testForUpdate("dandelion"):
 				send "{@prefix} Une mise à jour est disponible pour Dandelion, installation en cours..." to console
-				installUpdate("dandelion")
+				create directory path "plugins/_backups/dandelion"
+				copy file path "plugins/Skript/scripts/dandelion.sk" to file path "plugins/_backup/updatron/dandelion.%dandelion_version()%.sk"
+				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/dandelion.sk" to file path "plugins/Skript/scripts/dandelion.sk"
+				wait 5 ticks
+				execute console command "/skript reload dandelion"
 
 command forceUpdate <text>:
 	permission: updatron.forceupdate
