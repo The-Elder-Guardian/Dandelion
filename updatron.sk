@@ -22,9 +22,9 @@ function installUpdate(script: text):
 	if "%{_script}%" is not "":
 		if file path "plugins/Skript/scripts/%{_script}%.sk" is not missing:
 			create directory path "plugins/_backups/%{_script}%"
-			if {_script} is "dandelion":
+			if "%	²{_script}%" is "dandelion":
 				copy file path "plugins/Skript/scripts/%{_script}%.sk" to file path "plugins/_backup/%{_script}%/%{_script}%.before.%dandelion_version()%.sk"
-			if {_script} is "updatron":
+			if "%{_script}%" is "updatron":
 				copy file path "plugins/Skript/scripts/%{_script}%.sk" to file path "plugins/_backup/%{_script}%/%{_script}%.before.{@updatron-version}.sk"
 			download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/scripts/%{_script}%.sk" to file path "plugins/Skript/scripts/%{_script}%.sk"
 			wait 5 ticks
