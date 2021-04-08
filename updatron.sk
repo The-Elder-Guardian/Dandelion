@@ -1,0 +1,60 @@
+options:
+	updatron-version: 0.0.1
+	prefix: &e&lAutoUpdate&7&r » &f
+	
+	
+function testForUpdate(script: text) :: boolean:
+	set {_latest} to content from url "https://github.com/The-Elder-Guardian/Dandelion/raw/master/version/production/%{_script}%"
+	if {_latest} is set:
+		if {_script} is "dandelion":
+			set {_installed} to dandelion_version()
+		if {_script} is "updatron":
+			set {_installed} to "{@updatron-version}"
+		if {_latest} is not {_installed}:
+			return true
+		else:
+			return false
+	if {_latest} is not set:
+		send "Erreur lors de la vérification de la dernière version pour %{_script}%" to console
+		return false
+		
+function installUpdate(script: text):
+	if "%{_script}%" is not "":
+		if file path "plugins/Skript/scripts/%{_script}%.sk" is not missing:
+			create directory path "plugins/_backups/%{_script}%"
+			if {_script} is "dandelion":
+				copy file path "plugins/Skript/scripts/%{_script}%.sk" to file path "plugins/_backup/%{_script}%/%{_script}%.before.%dandelion_version()%.sk"
+			if {_script} is "updatron":
+				copy file path "plugins/Skript/scripts/%{_script}%.sk" to file path "plugins/_backup/%{_script}%/%{_script}%.before.{@updatron-version}.sk"
+			download from url "https://github.com/The-Elder-Guardian/Dandelion/raw/master/scripts/%{_script}%.sk" to file path "plugins/Skript/scripts/%{_script}%.sk"
+			wait 5 ticks
+			execute console command "/skript reload %{_script}%"
+			send "{@prefix} Mise à jour effectuée avec succés pour %{_script}%..." to console
+	
+on load:
+	send "{@prefix} Version d'Updatron installée : &b{@updatron-version}" to console
+	if testForUpdate("updatron"):
+		send "{@prefix} Une mise à jour d'Updatron est disponible, installation..." to console
+		installUpdate("updatron")
+	else:
+		send "{@prefix} Mise à jour des scripts depuis Github..." to console
+    
+		# CHECK NAVITRON UPDATES
+		if script "dandelion.sk" is loaded:
+			send "{@prefix} Dandelion est chargé, vérification des mises à jour..." to console
+			if testForUpdate("dandelion"):
+				send "{@prefix} Une mise à jour est disponible pour Dandelion, installation en cours..." to console
+				installUpdate("dandelion")
+
+command forceUpdate <text>:
+	permission: updatron.forceupdate
+	executable by: console and players
+	trigger:
+		if command sender is console:
+			send "{@prefix} Mise à jour forcée pour le script %arg-1%" to console
+			installUpdate(arg-1)
+		else:
+			send "{@prefix} Mise à jour forcée pour le script %arg-1%" to player
+			send "{@prefix} Mise à jour forcée pour le script %arg-1% par %player%" to console
+			installUpdate(arg-1)
+			send "{@prefix} Mise à jour terminée" to player
