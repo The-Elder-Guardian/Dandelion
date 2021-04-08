@@ -9,8 +9,8 @@ on load:
 	change status of bot "Dandelion" to online
 	mark the bot named "Dandelion" playing "%{dandelion.map.name}%"
 	make new command:
-    		set discord name of command to "map"
-    		set description of command to "Obtenir la description de la map actuellement en jeu"
+		set discord name of command to "map"
+		set description of command to "Obtenir la description de la map actuellement en jeu"
 	create slash command with bot named "Dandelion"
 	
 on slash command:
