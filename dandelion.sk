@@ -1,9 +1,34 @@
 options:
-	version: 0.0.2
+	version: 0.0.3
 
 function dandelion_version() :: string:
 	return "{@version}"
+	
+on load:
+	login to "%{dandelion.discord.token}%" with name "Dandelion"
+	change status of bot "Dandelion" to online
+	mark the bot named "Dandelion" playing "%{dandelion.map.name}%"
+	make new command:
+    		set discord name of command to "map"
+    		set description of command to "Obtenir la description de la map actuellement en jeu"
+	create slash command with bot named "Dandelion"
+	
+on slash command:
+  set {_m} to new message builder
+  append "Voici quelques informations sur le serveur :" to builder {_m}
+  append "%nl%`•` Nom de la map: %{dandelion.map.name}%" to builder {_m}
+  append "%nl%`•` Auteur de la map: %{dandelion.map.author}%" to builder {_m}
+  append "%nl%`•` Vue dans l'édition %{dandelion.map.edition}%" to builder {_m}
+  append "%nl%`•` Rejoignez-nous sur `map.theelderguardian.fr`" to builder {_m}
+  reply with {_m}
 
+command setDiscordToken <text>:
+	executable by: console
+	trigger:
+		set {dandelion.discord.token} to arg-1
+		send "Token du bot Discord défini sur '%arg-1%'" to console
+		send "Rechargement du script afin d'appliquer les modifications" to console
+		
 command setMapName <text>:
 	executable by: console
 	trigger:
