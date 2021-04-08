@@ -5,14 +5,14 @@ function dandelion_version() :: string:
 	return "{@version}"
 
 command setMapName <text>:
-	executable-by: console
+	executable by: console
 	trigger:
 		if command sender is console:
 			set {dandelion.map.name} to arg-1
 			send "Nom de la map défini sur '%arg-1%'" to console
 
 command setMapAuthor <text>:
-	executable-by: console
+	executable by: console
 	trigger:
 		if command sender is console:
 			set {dandelion.map.author} to arg-1
