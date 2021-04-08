@@ -1,5 +1,25 @@
 options:
-	version: 0.0.1
+	version: 0.0.2
 
 function dandelion_version() :: string:
 	return "{@version}"
+
+command setMapName <text>:
+	executable-by: console
+	trigger:
+		if command sender is console:
+			set {dandelion.map.name} to arg-1
+			send "Nom de la map défini sur '%arg-1%'" to console
+
+command setMapAuthor <text>:
+	executable-by: console
+	trigger:
+		if command sender is console:
+			set {dandelion.map.author} to arg-1
+			send "Nom de la map défini sur '%arg-1%'" to console
+			
+command mapInfo:
+	trigger:
+		send "&bMap actuelle : &c%{dandelion.map.name}%" to player
+		send "&bAuteur : &c%{dandelion.map.author}%" to player
+		
