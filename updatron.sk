@@ -1,10 +1,10 @@
 options:
-	updatron-version: 0.0.1
+	updatron-version: 0.0.2
 	prefix: &e&lAutoUpdate&7&r » &f
 	
 	
 function testForUpdate(script: text) :: boolean:
-	set {_latest} to content from url "https://github.com/The-Elder-Guardian/Dandelion/raw/master/version/production/%{_script}%"
+	set {_latest} to text from url "https://github.com/The-Elder-Guardian/Dandelion/raw/master/version/production/%{_script}%"
 	if {_latest} is set:
 		if {_script} is "dandelion":
 			set {_installed} to dandelion_version()
