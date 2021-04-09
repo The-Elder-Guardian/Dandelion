@@ -33,7 +33,7 @@ on join:
 	send resource pack "https://download.mc-packs.net/pack/9e737f26717920a8d13fa201f10cd29a472ca9e0.zip" with hash "9e737f26717920a8d13fa201f10cd29a472ca9e0" to player
 	
 on resource pack decline:
-	kick the player due to "Vous devez installer le pack de ressources pour jouer sur ce serveur!/n/nVérifiez que le paramètre ""Pack de ressources"" de votre serveur est sur ""Activé"" ou ""Demander""."
+	kick the player due to "Vous devez installer le pack de ressources pour jouer sur ce serveur!%newline%%newline%Vérifiez que le paramètre ""Pack de ressources"" de votre serveur est sur ""Activé"" ou ""Demander""."
 
 on resource pack accept:
 	send title "&cInstallation..." with subtitle "Cela va prendre quelques secondes..." to player for 10 seconds with fadein 0 second and fade out 1 second
@@ -43,7 +43,7 @@ on resource pack successfully load:
 	make player execute command "/animation"
 	
 on resource pack download fail:
-	kick the player due to "Vous devez installer le pack de ressources pour jouer sur ce serveur!/n/nL'installation du pack de ressources à échoué ! Veuillez réesayer."
+	kick the player due to "Vous devez installer le pack de ressources pour jouer sur ce serveur!%newline%%newline%L'installation du pack de ressources à échoué ! Veuillez réesayer."
 
 command animation:
 	trigger:
