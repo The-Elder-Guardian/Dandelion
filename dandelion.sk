@@ -47,4 +47,96 @@ command mapInfo:
 	trigger:
 		send "&bMap actuelle : &c%{dandelion.map.name}%" to player
 		send "&bAuteur : &c%{dandelion.map.author}%" to player
-		
+
+## GESTION DES MAPS		
+command /addmap [<text>] [<text>] [<text>] [<item>] [<text>]:
+	permission: map.add
+	trigger:
+		if arg 1 isn't set :
+			send "&c[&6&lMap&c]&rPrécise un nom de map !"
+			stop
+		if arg 2 isn't set :
+			send "&c[&6&lMap&c]&rPrécise un auteur de map !"
+			stop
+		if arg 3 isn't set :
+			send "&c[&6&lMap&c]&rPrécise l'emplacement de la map !"
+			stop
+		if arg 4 isn't set :
+			send "&c[&6&lMap&c]&rPrécise un item pour le menu !"
+			stop
+		if arg 5 isn't set :
+			send "&c[&6&lMap&c]&rPrécise une description !"
+			stop
+		if {warp.list::%arg 1%} is set:
+			send "&c[&6&lMap&c]&rCe nom de map est déja utilisé !"
+			stop
+		if arg 1 is set :
+			if arg 1 contain "_":
+				send "&c[&6&lMap&c]Votre nom de map ne peut contenir de ""_""."
+				stop
+			if arg 2 contain "_":
+				send "&c[&6&lMap&c]Votre nom d'auteur de map ne peut contenir de ""_""."
+				stop
+			if arg 1 contain "_":
+				send "&c[&6&lMap&c]Votre description de map ne peut contenir de ""_""."
+				stop
+			else:
+				set {map.list::%arg 1%} to arg 1
+				set {map.author::%arg 1%} to arg 2
+				set {map.world::%arg 1%} to arg 3
+				set {map.items::%arg 1%} to arg 4
+				set {map.desc::%arg 1%} to arg 5
+				send "&8[&6&lMap&8]La map ""%arg 1 %"" a été ajoutée à la liste des maps."
+				
+command /suppmap [<text>]:
+	permission: map.supp
+	trigger:
+		if arg 1 isn't set :
+			send "&c[&6&lMap&c]&rPrécise un nom de map à supprimer !"
+			stop
+		if {warp.world::%arg 1%} isn't set :
+			send "&c[&6&lMap&c]La map ""%arg 1 %"" n'existe pas . . ."
+			stop
+		if {warp.world::%arg 1%} is set :
+			send "&8[&6&lMap&8]La map ""%arg 1 %"" a été supprimée."
+			delete {map.list::%arg 1%}
+			delete {map.author::%arg 1%}
+			delete {map.world::%arg 1%}
+			delete {map.items::%arg 1%}
+			delete {map.desc::%arg 1%}
+
+command /suppallmap [<text=false>]:
+	permission: warp.supprall
+	trigger:
+		if arg 1 is "true":
+			send "&8[&6&lWarp&8]TOUS les warps ont été supprimé "
+			delete {map.list::*}
+			delete {map.author::*}
+			delete {map.world::*}
+			delete {map.items::*}
+			delete {map.desc::*}
+		else:
+			send "&4[&6&lMap&4]&cVeuillez confirmer l'action avec la commande &9/suppallmap true."
+			
+			
+command /map [<player>] [<text=menu>] [<text>] [<integer>]: #ATTENTION, dans le code le arg 4 
+	trigger:
+		if arg 1 isn't set :
+			make player execute command "/map %player% menu 1 1"
+		if arg 1 is set:
+			if arg 2 isn't set: 
+				make player execute command "/map %player% %arg 1%"
+				stop
+			if arg 2 is "menu":
+				wait 2 ticks
+				if arg 4 is 1:
+					open chest with 6 rows named "&3&l[&6Maps &3Menu : %arg 4%&3&l]" to arg 1 
+					wait 1 tick
+					set {_slot.map} to 0
+					loop {warp.list::*}:
+						set {_loop} to loop-value
+						format slot {_slot.map} of arg 1 with {map.items::%{_loop}%} named "&a&l%{_loop}%" with lore "&3• &bMap &3: &c%{_loop}%", "&3• &bAuteur &3: &c%{map.author::%{_loop}%}%" and "&3• &bDescription &3: &c%{map.desc::%{_loop}%}%" to close then run "/map %arg 1% change %{_loop}%"
+						add 1 to {_slot.map}
+					stop
+			else if arg 2 is "tp": 
+				broadcast "Changement de la map pour %arg 3%"
