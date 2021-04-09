@@ -22,6 +22,18 @@ on slash command:
   append "%nl%`•` Rejoignez-nous sur `map.theelderguardian.fr`" to builder {_m}
   reply with {_m}
 
+on join:
+	if {players.online} is not set:
+		set {players.online} to 0
+	increase {players.online} by 1
+	increase {players.ever} by 1
+
+on quit:
+	reduce {players.online} by 1
+	if {players.online} < 0:
+		set {players.online} to 0
+	testVoteEnd()
+
 command setDiscordToken <text>:
 	executable by: console
 	trigger:
@@ -47,8 +59,7 @@ command mapInfo:
 	trigger:
 		send "&bMap actuelle : &c%{dandelion.map.name}%" to player
 		send "&bAuteur : &c%{dandelion.map.author}%" to player
-
-## GESTION DES MAPS		
+		
 command /addmap [<text>] [<text>] [<text>] [<item>] [<text>]:
 	permission: map.add
 	trigger:
@@ -119,23 +130,66 @@ command /suppallmap [<text=false>]:
 			send "&4[&6&lMap&4]&cVeuillez confirmer l'action avec la commande &9/suppallmap true."
 			
 			
-command /map [<player>] [<text=menu>] [<text>]: #ATTENTION, dans le code le arg 4 
+command /map [<player>] [<text=menu>] [<text>]:
 	trigger:
 		if arg 1 isn't set :
-			make player execute command "/map %player% menu"
+			if {dandelion.vote.started} is not set:
+				make player execute command "/map %player% menu"
+			if {dandelion.vote.started} is true:
+				make player execute command "/map %player% votemenu"
 		if arg 1 is set:
 			if arg 2 isn't set: 
 				make player execute command "/map %player% %arg 1%"
 				stop
 			if arg 2 is "menu":
 				wait 2 ticks
-				open chest with 6 rows named "&3&l[&6Maps &3Menu : %arg 4%&3&l]" to arg 1 
+				open chest with 6 rows named "&3&l[&6Maps &3Menu&3&l]" to arg 1 
 				wait 1 tick
 				set {_slot.map} to 0
 				loop {map.list::*}:
 					set {_loop} to loop-value
-					format slot {_slot.map} of arg 1 with {map.items::%{_loop}%} named "&a&l%{_loop}%" with lore "&3• &bMap &3: &c%{_loop}%", "&3• &bAuteur &3: &c%{map.author::%{_loop}%}%" and "&3• &bDescription &3: &c%{map.desc::%{_loop}%}%" to close then run "/map %arg 1% change %{_loop}%"
+					format slot {_slot.map} of arg 1 with {map.items::%{_loop}%} named "&a&l%{_loop}%" with lore "&3• &bMap &3: &c%{_loop}%", "&3• &bAuteur &3: &c%{map.author::%{_loop}%}%" and "&3• &bDescription &3: &c%{map.desc::%{_loop}%}%" to close then run "map %arg 1% votefor %{_loop}%"
 					add 1 to {_slot.map}
 				stop
-			else if arg 2 is "change": 
-				broadcast "Changement de la map pour %arg 3%"
+			if arg 2 is "votefor": 
+				if {dandelion.vote.started} is not set:
+					if {players.online} is not 1:
+						if {dandelion.lastvote.%arg 3%} was less than 10 minutes:
+							send "&cCette map a été refusée en vote il y a moins de 10 minutes, réessayez plus tard !"
+						broadcast "&3%arg 1% &bvient de lancer un vote pour changer de map, il propose la map &3%arg 3% &b!"
+						broadcast "&3•&b Utilisez la commande ""/map"" pour accepter ou refuser la demande"
+						set {dandelion.lastvote.%arg 3%} to now
+						set {dandelion.vote.started} to true
+						set {dandelion.vote.active} to arg 3
+						set {dandelion.vote.for} to 1
+						set {dandelion.vote.against} to 0
+						set {dandelion.voted.player::%arg 1%} to true
+					if {players.online} is 1:
+						broadcast "Yellow"
+						make console execute command "/changemap %arg 3%"
+				if {dandelion.vote.started}:
+					if {dandelion.voted.player::%arg 1%} is true:
+						send "&4Désolé&c, vous avez déjà voté durant ce vote !" to arg 1
+					else:
+						set {dandelion.voted.player::%arg 1%} to true
+						add 1 to {dandelion.vote.for}
+						testVoteEnd()
+			if arg 2 is "votemenu":
+				open chest with 4 rows named "&3&l[&6Maps &3Vote&3&l]" to arg 1
+				wait 1 tick
+				format slot 13 of arg 1 with {map.items::%{dandelion.vote.active}%} named "&a&l%{dandelion.vote.active}%" with lore "&3• &bMap &3: &c%{dandelion.vote.active}%", "&3• &bAuteur &3: &c%{map.author::%{dandelion.vote.active}%}%" and "&3• &bDescription &3: &c%{map.desc::%{dandelion.vote.active}%}%" to be unstealable
+				
+function testVoteEnd():
+	if {players.online} <= {dandelion.vote.for} + {dandelion.vote.against}:
+		if {dandelion.vote.for} >= {dandelion.vote.against}:
+			broadcast "&bTous les joueurs ont votés ! &3Le vote est terminé &b!"
+			broadcast "&cRésultat : &bChangement &aaccepté !"
+			make console execute command "/changemap %{dandelion.vote.active}%"
+			delete {dandelion.vote.active}
+			delete {dandelion.vote.started}
+		if {dandelion.vote.for} < {dandelion.vote.against}:
+			broadcast "&bTous les joueurs ont votés ! &3Le vote est terminé &b!"
+			broadcast "&cRésultat : &bChangement &4refusé !"
+			delete {dandelion.vote.active}
+			delete {dandelion.vote.started}
+			delete {dandelion.voted.player::*} 
