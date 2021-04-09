@@ -32,7 +32,7 @@ function sklib_animationFlash(text: text, color1: text, color2: text, color3: te
 on join:
 	send resource pack "https://download.mc-packs.net/pack/9e737f26717920a8d13fa201f10cd29a472ca9e0.zip" with hash "9e737f26717920a8d13fa201f10cd29a472ca9e0" to player
 	
-on resource pack deny:
+on resource pack decline:
 	kick the player due to "Vous devez installer le pack de ressources pour jouer sur ce serveur!\n\nVérifiez que le paramètre ""Pack de ressources"" de votre serveur est sur ""Activé"" ou ""Demander""."
 
 on resource pack accept:
@@ -107,5 +107,5 @@ command animation:
 		wait 2 seconds
 		send title "&fvous présentent" to player for 1 seconds with fadein 1 second and fade out 1 second
 		wait 2 tick
-		send title "&fvous présentent" with subtitle "&cTNT Race" to player for 1 seconds with fadein 1 second and fade out 1 second
+		send title "&fvous présentent" with subtitle "&bTNT Race &fpar &cVertex Creations" to player for 1 seconds with fadein 1 second and fade out 1 second
 		
