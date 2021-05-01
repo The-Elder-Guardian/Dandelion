@@ -12,6 +12,8 @@ function testForUpdate(script: text) :: boolean:
 			set {_installed} to cc2_version()
                 if {_script} is "sprint-racers":
 			set {_installed} to sr_version()
+                if {_script} is "ariane5":
+			set {_installed} to ariane5_version()
 		if {_script} is "updatron":
 			set {_installed} to "{@updatron-version}"
 		if {_latest} is not {_installed}:
@@ -53,6 +55,14 @@ on load:
 				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/scripts/sprint-racers.sk" to file path "plugins/Skript/scripts/sprint-racers.sk"
 				wait 5 ticks
 				execute console command "/skript reload sprint-racers"
+		if script "ariane5.sk" is loaded:
+			send "{@prefix} Ariane5 est chargé, vérification des mises à jour..." to console
+			if testForUpdate("sprint-racers"):
+				send "{@prefix} Une mise à jour est disponible pour Ariane5, installation en cours..." to console
+				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/scripts/ariane5.sk" to file path "plugins/Skript/scripts/ariane5.sk"
+				wait 5 ticks
+				execute console command "/skript reload sprint-racers"
+
 
 every hour:
     execute console command "/skript reload updatron"
