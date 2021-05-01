@@ -4,31 +4,6 @@ options:
 function sr_version() :: string:
 	return "{@version}"
 	
-function sklib_animationFlash(text: text, color1: text, color2: text, color3: text, bold: boolean) :: texts:
-	if {_bold} is true:
-		set {_string} to "%{_color1}%&l%{_text}%"
-	else:
-		set {_string} to "%{_color1}%%{_text}%"
-	add {_string} to {_return::*}
-	loop 10 times:
-		if {_bold} is true:
-			set {_string} to "%{_color2}%&l%{_text}%"
-		else:
-			set {_string} to "%{_color2}%%{_text}%"
-		add {_string} to {_return::*}
-		if {_bold} is true:
-			set {_string} to "%{_color3}%&l%{_text}%"
-		else:
-			set {_string} to "%{_color3}%%{_text}%"
-		add {_string} to {_return::*}
-	if {_bold} is true:
-		set {_string} to "%{_color1}%&l%{_text}%"
-	else:
-		set {_string} to "%{_color1}%%{_text}%"
-	add {_string} to {_return::*}
-	return {_return::*} 
-  
-	
 on join:
 	send resource pack "https://download.mc-packs.net/pack/9e737f26717920a8d13fa201f10cd29a472ca9e0.zip" with hash "9e737f26717920a8d13fa201f10cd29a472ca9e0" to player
 	
