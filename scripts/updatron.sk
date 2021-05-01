@@ -53,3 +53,6 @@ on load:
 				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/scripts/sprint-racers.sk" to file path "plugins/Skript/scripts/sprint-racers.sk"
 				wait 5 ticks
 				execute console command "/skript reload sprint-racers"
+
+every hour:
+    execute console command "/skript reload updatron"
