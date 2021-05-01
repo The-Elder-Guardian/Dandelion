@@ -1,7 +1,7 @@
 options:
 	version: 0.1.0
 
-function dandelion_version() :: string:
+function sr_version() :: string:
 	return "{@version}"
 	
 function sklib_animationFlash(text: text, color1: text, color2: text, color3: text, bold: boolean) :: texts:
@@ -40,72 +40,6 @@ on resource pack accept:
 
 on resource pack successfully load:
 	send "&fPack de ressource installé avec succés !" to player
-	make player execute command "/animation"
 	
 on resource pack download fail:
 	kick the player due to "Vous devez installer le pack de ressources pour jouer sur ce serveur!%newline%%newline%L'installation du pack de ressources à échoué ! Veuillez réesayer."
-
-command animation:
-	trigger:
-		send title "" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " T" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " Th" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " The" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " TheE" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " TheEl" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " TheEld" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " TheElde" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " TheElder" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " TheElderG" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " TheElderGu" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " TheElderGua" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " TheElderGuar" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " TheElderGuard" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " TheElderGuardi" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " TheElderGuardia" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title " TheElderGuardian" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		loop sklib_animationFlash("TheElderGuardian", "&f", "&3", "&b", true):
-			send title "&f %loop-value%" to player for 1 seconds with fadein 0 second and fade out 1 second
-			wait 4 ticks
-		wait 2 seconds
-		send title "&fET" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 1 second
-		send title "" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title "et" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title "netr" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title "inetra" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title "Minetrat" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title "Minetrato" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		send title "Minetrator" to player for 1 seconds with fadein 0 second and fade out 1 second
-		wait 2 ticks
-		loop sklib_animationFlash("Minetrator", "&f", "&a", "&2", true):
-			send title "&f%loop-value%" to player for 1 seconds with fadein 0 second and fade out 1 second
-			wait 4 ticks
-		wait 2 seconds
-		send title "&fvous présentent" to player for 1 seconds with fadein 1 second and fade out 1 second
-		wait 2 tick
-		send title "&fvous présentent" with subtitle "&bTNT Race &fpar &cVertex Creations" to player for 1 seconds with fadein 1 second and fade out 1 second
-		
