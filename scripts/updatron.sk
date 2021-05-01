@@ -1,13 +1,17 @@
 options:
-	updatron-version: 0.0.2
+	updatron-version: 0.1.0
 	prefix: &e&lAutoUpdate&7&r » &f
 	
 	
 function testForUpdate(script: text) :: boolean:
 	set {_latest} to text from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/version/production/%{_script}%"
 	if {_latest} is set:
-		if {_script} is "dandelion":
-			set {_installed} to dandelion_version()
+		if {_script} is "tntrace":
+			set {_installed} to tntrace_version()
+                if {_script} is "cc2":
+			set {_installed} to cc2_version()
+                if {_script} is "sprint-racers":
+			set {_installed} to sr_version()
 		if {_script} is "updatron":
 			set {_installed} to "{@updatron-version}"
 		if {_latest} is not {_installed}:
@@ -22,53 +26,30 @@ on load:
 	send "{@prefix} Version d'Updatron installée : &b{@updatron-version}" to console
 	if testForUpdate("updatron"):
 		send "{@prefix} Une mise à jour d'Updatron est disponible, installation..." to console
-		download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/updatron.sk" to file path "plugins/Skript/scripts/updatron.sk"
+		download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/scripts/updatron.sk" to file path "plugins/Skript/scripts/updatron.sk"
 		wait 5 ticks
 		execute console command "/skript reload updatron"
 		stop
 	else:
 		send "{@prefix} Mise à jour des scripts depuis Github..." to console
-		if script "dandelion.sk" is loaded:
-			send "{@prefix} Dandelion est chargé, vérification des mises à jour..." to console
-			if testForUpdate("dandelion"):
+		if script "tntrace.sk" is loaded:
+			send "{@prefix} TNT Race est chargé, vérification des mises à jour..." to console
+			if testForUpdate("tntrace"):
 				send "{@prefix} Une mise à jour est disponible pour Dandelion, installation en cours..." to console
-				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/dandelion.sk" to file path "plugins/Skript/scripts/dandelion.sk"
+				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/scripts/tntrace.sk" to file path "plugins/Skript/scripts/tntrace.sk"
 				wait 5 ticks
-				execute console command "/skript reload dandelion"
-
-command forceUpdate <text>:
-	permission: updatron.forceupdate
-	executable by: console and players
-	trigger:
-		if command sender is console:
-			if arg-1 is "updatron":
-				send "{@prefix} Mise à jour forcée pour le script Updatron" to console
-				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/updatron.sk" to file path "plugins/Skript/scripts/updatron.sk"
+				execute console command "/skript reload tntrace"
+		if script "cc2.sk" is loaded:
+			send "{@prefix} Combat Cube 2 est chargé, vérification des mises à jour..." to console
+			if testForUpdate("cc2"):
+				send "{@prefix} Une mise à jour est disponible pour Combat Cube 2, installation en cours..." to console
+				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/scripts/cc2.sk" to file path "plugins/Skript/scripts/cc2.sk"
 				wait 5 ticks
-				execute console command "/skript reload updatron"
-				send "{@prefix} Mise à jour terminée" to console
-			else if arg-1 is "dandelion":
-				send "{@prefix} Mise à jour forcée pour le script Dandelion" to console
-				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/dandelion.sk" to file path "plugins/Skript/scripts/dandelion.sk"
+				execute console command "/skript reload cc2"
+		if script "sprint-racers.sk" is loaded:
+			send "{@prefix} Sprint Racers est chargé, vérification des mises à jour..." to console
+			if testForUpdate("sprint-racers"):
+				send "{@prefix} Une mise à jour est disponible pour Sprint Racers, installation en cours..." to console
+				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/scripts/sprint-racers.sk" to file path "plugins/Skript/scripts/sprint-racers.sk"
 				wait 5 ticks
-				execute console command "/skript reload dandelion"
-				send "{@prefix} Mise à jour terminée" to console
-			else:
-				send "{@prefix} Le script demandé n'existe pas"
-		else:
-			if arg-1 is "updatron":
-				send "{@prefix} Mise à jour forcée pour le script Updatron par %player%" to console
-				send "{@prefix} Mise à jour forcée pour le script Updatron" to player
-				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/updatron.sk" to file path "plugins/Skript/scripts/updatron.sk"
-				wait 5 ticks
-				execute console command "/skript reload updatron"
-				send "{@prefix} Mise à jour terminée" to player
-			else if arg-1 is "dandelion":
-				send "{@prefix} Mise à jour forcée pour le script Dandelion par %player%" to console
-				send "{@prefix} Mise à jour forcée pour le script Dandelion" to player
-				download from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/dandelion.sk" to file path "plugins/Skript/scripts/dandelion.sk"
-				wait 5 ticks
-				execute console command "/skript reload dandelion"
-				send "{@prefix} Mise à jour terminée" to player
-			else:
-				send "{@prefix} Le script demandé n'existe pas"
+				execute console command "/skript reload sprint-racers"
