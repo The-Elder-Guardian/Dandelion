@@ -30,7 +30,7 @@ function sklib_animationFlash(text: text, color1: text, color2: text, color3: te
   
 	
 on join:
-	send resource pack "https://download.mc-packs.net/pack/9e737f26717920a8d13fa201f10cd29a472ca9e0.zip" with hash "9e737f26717920a8d13fa201f10cd29a472ca9e0" to player
+	send resource pack "https://theelderguardian.fr/resources/maps/TNTRace.zip" with hash "9e737f26717920a8d13fa201f10cd29a472ca9e0" to player
 	
 on resource pack decline:
 	kick the player due to "Vous devez installer le pack de ressources pour jouer sur ce serveur!%newline%%newline%Vérifiez que le paramètre ""Pack de ressources"" de votre serveur est sur ""Activé"" ou ""Demander""."
