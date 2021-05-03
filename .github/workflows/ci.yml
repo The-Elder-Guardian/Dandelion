@@ -10,7 +10,7 @@ jobs:
               uses: actions/checkout@v2
             
             - name: Tester uniquement Updatron
-              run: cp scripts/updatron.sk .
+              run: rm  !(updatron.sk)
 
             - name: ✅ Run skript-action
               uses: Romitou/skript-action@1.0.0
@@ -24,11 +24,8 @@ jobs:
             - name: ⬇️ Checkout
               uses: actions/checkout@v2
             
-            - name: Ajouter Updatron au test
-              run: cp scripts/updatron.sk .
-              
-            - name: Ajouter TNT Race au test
-              run: cp scripts/tntrace.sk .
+            - name: Retirer les scripts inutiles du test
+              run: rm  !(updatron.sk|tntrace.sk)
               
             - name: ✅ Run skript-action
               uses: Romitou/skript-action@1.0.0
@@ -42,11 +39,8 @@ jobs:
             - name: ⬇️ Checkout
               uses: actions/checkout@v2
             
-            - name: Ajouter Updatron au test
-              run: cp scripts/updatron.sk .
-              
-            - name: Ajouter TNT Race au test
-              run: cp scripts/sprint-racers.sk .
+            - name: Retirer les scripts inutiles du test
+              run: rm  !(updatron.sk|sprint-racers.sk)
               
             - name: ✅ Run skript-action
               uses: Romitou/skript-action@1.0.0
@@ -60,11 +54,8 @@ jobs:
             - name: ⬇️ Checkout
               uses: actions/checkout@v2
             
-            - name: Ajouter Updatron au test
-              run: cp scripts/updatron.sk .
-              
-            - name: Ajouter TNT Race au test
-              run: cp scripts/cc2.sk .
+            - name: Retirer les scripts inutiles du test
+              run: rm  !(updatron.sk|cc2.sk)
               
             - name: ✅ Run skript-action
               uses: Romitou/skript-action@1.0.0
@@ -79,11 +70,8 @@ jobs:
             - name: ⬇️ Checkout
               uses: actions/checkout@v2
             
-            - name: Ajouter Updatron au test
-              run: cp scripts/updatron.sk .
-              
-            - name: Ajouter TNT Race au test
-              run: cp scripts/ariane5.sk .
+            - name: Retirer les scripts inutiles du test
+              run: rm  !(updatron.sk|ariane5.sk)
               
             - name: ✅ Run skript-action
               uses: Romitou/skript-action@1.0.0
