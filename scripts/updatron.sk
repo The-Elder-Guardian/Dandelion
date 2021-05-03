@@ -1,5 +1,5 @@
 options:
-	updatron-version: 0.1.0
+	updatron-version: 0.1.1
 	prefix: &e&lAutoUpdate&7&r » &f
 	
 	
@@ -7,13 +7,13 @@ function testForUpdate(script: text) :: boolean:
 	set {_latest} to text from url "https://raw.githubusercontent.com/The-Elder-Guardian/Dandelion/master/version/production/%{_script}%"
 	if {_latest} is set:
 		if {_script} is "tntrace":
-			set {_installed} to tntrace_version()
-                if {_script} is "cc2":
-			set {_installed} to cc2_version()
-                if {_script} is "sprint-racers":
-			set {_installed} to sr_version()
-                if {_script} is "ariane5":
-			set {_installed} to ariane5_version()
+			set {_installed} to {tntrace.version}
+		if {_script} is "cc2":
+			set {_installed} to {cc2.version}
+		if {_script} is "sprint-racers":
+			set {_installed} to {sr.version}
+		if {_script} is "ariane5":
+			set {_installed} to {ariane5.version}
 		if {_script} is "updatron":
 			set {_installed} to "{@updatron-version}"
 		if {_latest} is not {_installed}:

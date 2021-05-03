@@ -1,8 +1,8 @@
 options:
-	version: 0.1.0
+	version: 0.1.1
 
-function cc2_version() :: string:
-	return "{@version}"
+on load:
+	set {cc2.version} to "{@version}"
 	
 on join:
 	send resource pack "https://theelderguardian.fr/resources/maps/combatcube2.zip" with hash "b25820bf0575b9b5c6209dd8f9a2c6d7716ec1d5" to player
@@ -14,7 +14,7 @@ on resource pack accept:
 	send title "&cInstallation..." with subtitle "Cela va prendre quelques secondes..." to player for 10 seconds with fadein 0 second and fade out 1 second
 
 on resource pack successfully load:
-	send "&fPack de ressource installé avec succés !" to 
+	send "&fPack de ressource installé avec succés !" to player
 	
 on resource pack download fail:
-	kick the player due to "Vous devez installer le pack de ressources pour jouer sur ce serveur!%newline%%newline%L'installation du pack de ressources à échoué ! Veuillez réesayer."
+	kick the player due to "Vous devez installer le pack de ressources pour jouer sur ce serveur!%newline%%newline%L'installation du pack de ressources à échoué ! Veuillez réessayer."

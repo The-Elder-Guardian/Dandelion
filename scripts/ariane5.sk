@@ -1,8 +1,8 @@
 options:
-	version: 0.1.0
+	version: 0.1.1
 
-function ariane5_version() :: string:
-	return "{@version}"
+on load:
+	set {ariane5.version} to "{@version}"
 	
 on join:
 	send resource pack "https://theelderguardian.fr/resources/maps/ariane5.zip" with hash "945a7d217913dd3559dcbb8b3c67b87b6194aaa4" to player
