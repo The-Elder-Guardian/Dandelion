@@ -10,7 +10,7 @@ jobs:
               uses: actions/checkout@v2
             
             - name: Tester uniquement Updatron
-              run: shopt -s extglob && rm !(scripts/updatron.sk)
+              run: rm scripts/tntrace.sk scripts/sprint-racers.sk scripts/cc2.sk scripts/ariane5.sk
 
             - name: ✅ Run skript-action
               uses: Romitou/skript-action@1.0.0
@@ -25,7 +25,7 @@ jobs:
               uses: actions/checkout@v2
             
             - name: Retirer les scripts inutiles du test
-              run: shopt -s extglob && rm  !(scripts/updatron.sk|scripts/tntrace.sk)
+              run: rm scripts/sprint-racers.sk scripts/cc2.sk scripts/ariane5.sk
               
             - name: ✅ Run skript-action
               uses: Romitou/skript-action@1.0.0
@@ -40,7 +40,7 @@ jobs:
               uses: actions/checkout@v2
             
             - name: Retirer les scripts inutiles du test
-              run: shopt -s extglob && rm  !(scripts/updatron.sk|scripts/sprint-racers.sk)
+              run: rm scripts/tntrace.sk scripts/cc2.sk scripts/ariane5.sk
               
             - name: ✅ Run skript-action
               uses: Romitou/skript-action@1.0.0
@@ -55,7 +55,7 @@ jobs:
               uses: actions/checkout@v2
             
             - name: Retirer les scripts inutiles du test
-              run: shopt -s extglob && rm  !(scripts/updatron.sk|scripts/cc2.sk)
+              run: rm scripts/tntrace.sk scripts/sprint-racers.sk scripts/ariane5.sk
               
             - name: ✅ Run skript-action
               uses: Romitou/skript-action@1.0.0
@@ -71,7 +71,7 @@ jobs:
               uses: actions/checkout@v2
             
             - name: Retirer les scripts inutiles du test
-              run: shopt -s extglob && rm  !(scripts/updatron.sk|scripts/ariane5.sk)
+              run: rm scripts/tntrace.sk scripts/sprint-racers.sk scripts/cc2.sk
               
             - name: ✅ Run skript-action
               uses: Romitou/skript-action@1.0.0
