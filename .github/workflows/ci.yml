@@ -1,0 +1,81 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+    updatron-only:
+        runs-on: ubuntu-latest
+        steps:
+            - name: ⬇️ Checkout
+              uses: actions/checkout@v2
+            
+            - name: Tester uniquement Updatron
+              run: rm scripts/tntrace.sk scripts/sprint-racers.sk scripts/cc2.sk scripts/ariane5.sk
+
+            - name: ✅ Run skript-action
+              uses: Romitou/skript-action@1.0.0
+              with:
+                  addons: |
+                    SkQuery-Lime
+                    Skent
+    updatron-tntrace:
+        runs-on: ubuntu-latest
+        steps:
+            - name: ⬇️ Checkout
+              uses: actions/checkout@v2
+            
+            - name: Retirer les scripts inutiles du test
+              run: rm scripts/sprint-racers.sk scripts/cc2.sk scripts/ariane5.sk
+              
+            - name: ✅ Run skript-action
+              uses: Romitou/skript-action@1.0.0
+              with:
+                  addons: |
+                    SkQuery-Lime
+                    Skent
+    updatron-sprint-racers:
+        runs-on: ubuntu-latest
+        steps:
+            - name: ⬇️ Checkout
+              uses: actions/checkout@v2
+            
+            - name: Retirer les scripts inutiles du test
+              run: rm scripts/tntrace.sk scripts/cc2.sk scripts/ariane5.sk
+              
+            - name: ✅ Run skript-action
+              uses: Romitou/skript-action@1.0.0
+              with:
+                  addons: |
+                    SkQuery-Lime
+                    Skent
+    updatron-cc2:
+        runs-on: ubuntu-latest
+        steps:
+            - name: ⬇️ Checkout
+              uses: actions/checkout@v2
+            
+            - name: Retirer les scripts inutiles du test
+              run: rm scripts/tntrace.sk scripts/sprint-racers.sk scripts/ariane5.sk
+              
+            - name: ✅ Run skript-action
+              uses: Romitou/skript-action@1.0.0
+              with:
+                  addons: |
+                    SkQuery-Lime
+                    Skent
+                    
+    updatron-ariane5:
+        runs-on: ubuntu-latest
+        steps:
+            - name: ⬇️ Checkout
+              uses: actions/checkout@v2
+            
+            - name: Retirer les scripts inutiles du test
+              run: rm scripts/tntrace.sk scripts/sprint-racers.sk scripts/cc2.sk
+              
+            - name: ✅ Run skript-action
+              uses: Romitou/skript-action@1.0.0
+              with:
+                  addons: |
+                    SkQuery-Lime
+                    Skent
