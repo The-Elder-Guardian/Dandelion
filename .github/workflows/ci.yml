@@ -1,0 +1,93 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+    updatron-only:
+        runs-on: ubuntu-latest
+        steps:
+            - name: ⬇️ Checkout
+              uses: actions/checkout@v2
+            
+            - name: Tester uniquement Updatron
+              run: cp scripts/updatron.sk .
+
+            - name: ✅ Run skript-action
+              uses: Romitou/skript-action@1.0.0
+              with:
+                  addons: |
+                    SkQuery-Lime
+                    Skent
+    updatron-tntrace:
+        runs-on: ubuntu-latest
+        steps:
+            - name: ⬇️ Checkout
+              uses: actions/checkout@v2
+            
+            - name: Ajouter Updatron au test
+              run: cp scripts/updatron.sk .
+              
+            - name: Ajouter TNT Race au test
+              run: cp scripts/tntrace.sk .
+              
+            - name: ✅ Run skript-action
+              uses: Romitou/skript-action@1.0.0
+              with:
+                  addons: |
+                    SkQuery-Lime
+                    Skent
+    updatron-sprint-racers:
+        runs-on: ubuntu-latest
+        steps:
+            - name: ⬇️ Checkout
+              uses: actions/checkout@v2
+            
+            - name: Ajouter Updatron au test
+              run: cp scripts/updatron.sk .
+              
+            - name: Ajouter TNT Race au test
+              run: cp scripts/sprint-racers.sk .
+              
+            - name: ✅ Run skript-action
+              uses: Romitou/skript-action@1.0.0
+              with:
+                  addons: |
+                    SkQuery-Lime
+                    Skent
+    updatron-cc2:
+        runs-on: ubuntu-latest
+        steps:
+            - name: ⬇️ Checkout
+              uses: actions/checkout@v2
+            
+            - name: Ajouter Updatron au test
+              run: cp scripts/updatron.sk .
+              
+            - name: Ajouter TNT Race au test
+              run: cp scripts/cc2.sk .
+              
+            - name: ✅ Run skript-action
+              uses: Romitou/skript-action@1.0.0
+              with:
+                  addons: |
+                    SkQuery-Lime
+                    Skent
+                    
+    updatron-ariane5:
+        runs-on: ubuntu-latest
+        steps:
+            - name: ⬇️ Checkout
+              uses: actions/checkout@v2
+            
+            - name: Ajouter Updatron au test
+              run: cp scripts/updatron.sk .
+              
+            - name: Ajouter TNT Race au test
+              run: cp scripts/ariane5.sk .
+              
+            - name: ✅ Run skript-action
+              uses: Romitou/skript-action@1.0.0
+              with:
+                  addons: |
+                    SkQuery-Lime
+                    Skent
