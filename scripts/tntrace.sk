@@ -1,8 +1,8 @@
 options:
 	version: 0.1.1
 
-function tntrace_version() :: string:
-	return "{@version}"
+on load:
+	set {tntrace.version} to {@version}
 	
 function sklib_animationFlash(text: text, color1: text, color2: text, color3: text, bold: boolean) :: texts:
 	if {_bold} is true:

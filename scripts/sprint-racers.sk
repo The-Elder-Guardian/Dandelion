@@ -1,8 +1,8 @@
 options:
 	version: 0.1.1
 
-function sr_version() :: string:
-	return "{@version}"
+on load:
+	set {sr.version} to {@version}
 	
 on join:
 	send resource pack "https://theelderguardian.fr/resources/maps/sprint-racer.zip" with hash "6923b93b01f3881302d9b142800c21059accae40" to player
